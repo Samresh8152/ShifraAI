@@ -10,7 +10,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/firebase';
 import { ServerURL } from '../App';
 import { useNavigate } from 'react-router-dom';
-function Login() {
+function Login({setUser}) {
     const navigate = useNavigate();
     const FEATURES = [
         {
