@@ -10,6 +10,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/firebase';
 import { ServerURL } from '../App';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 function Login({setUser}) {
     const navigate = useNavigate();
     const FEATURES = [
@@ -41,11 +42,13 @@ function Login({setUser}) {
             const result  =  await signInWithPopup(auth, provider);
             const { displayName, email } = result.user;
             const res = await axios.post(ServerURL+"/api/auth/google", { name: displayName, email }, { withCredentials: true });
-
-            console.log(res.data);
+            
+            setUser(res.data);
+            toast.success("Login successful");
             navigate("/");
         }
         catch(err){
+            toast.error("Login failed");
             console.log(err);
         }
     }

@@ -8,17 +8,17 @@ import Navbar from './Components/Navbar';
 import Builder from './pages/Builder';
 import Billing from './pages/Billing';
 export const ServerURL = "http://localhost:8001"
-
+import { Toaster } from 'react-hot-toast';
 function App() {
   const [user,setUser] = React.useState(null);
-  const [loading,setLoading] = React.useState(false);
+  const [loading,setLoading] = React.useState(true);
 
   useEffect(()=>{
     const fetchme = async()=>{
       try{
         const res = await axios.get(ServerURL+"/api/user/current-user",{withCredentials:true});
         setUser(res.data);
-        console.log(res.data);
+         
         setLoading(false);
       }catch(err){
         console.log(err);
@@ -30,6 +30,7 @@ function App() {
 
   return (
       <>
+      <Toaster position="top-right"/>
         <Routes>
           
           <Route path="/login" element={<Login setUser={setUser}  />} />
